@@ -20,6 +20,10 @@ const Home = () => {
                     labels: time,
                     data: [
                         {
+                            label: "NDVI",
+                            data: ndvi
+                        },
+                        {
                             label: "Degree days",
                             data: degreeDays
                         },
@@ -27,10 +31,6 @@ const Home = () => {
                             label: "Precipitation",
                             data: precipitaion
                         },
-                        {
-                            label: "NDVI",
-                            data: ndvi
-                        }
                     ]
                 }
 
@@ -45,7 +45,10 @@ const Home = () => {
 
     return (
         <HomeContainer>
-            <GrowthStage data={data?.data} labels={data?.labels} />
+            <div className="home__content">
+                <h1 className="home__content--title">Estágio de Crescimento</h1>
+                <GrowthStage data={data?.data} labels={data?.labels} />
+            </div>
         </HomeContainer>
     )
 }

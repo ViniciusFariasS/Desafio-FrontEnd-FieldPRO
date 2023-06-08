@@ -1,15 +1,17 @@
 import React from 'react';
 import { Chart, registerables, ChartOptions, LegendItem, ChartData, ChartDataset } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { IGrowthStageProps } from './GrowthStage.interface';
+import { EColors, EColorsGradient, IGrowthStageProps } from './GrowthStage.interface';
 
 const GrowthStage: React.FC<IGrowthStageProps> = ({ data, labels }) => {
     Chart.register(...registerables);
+    Chart.defaults.elements.line.borderColor = "#F2f"
+    Chart.defaults.elements.line.borderWidth = 2
 
     const chartData: ChartData<"line"> = {
         labels: labels?.slice(0, 10),
         datasets: data ?
-            data.map((item) => {
+            data.map((item, indexof) => {
                 return {
                     label: item?.label,
                     data: item?.data,
@@ -17,41 +19,30 @@ const GrowthStage: React.FC<IGrowthStageProps> = ({ data, labels }) => {
                     fill: true,
                     pointBorderWidth: 0,
                     pointBackgroundColor: 'rgba(0,0,0,0)',
+                    borderColor: EColors[indexof],
+                    backgroundColor: EColorsGradient[indexof]
                 };
-            }) : []
+            }) : [],
     };
 
-    const options: ChartOptions = {
+    const options: ChartOptions<"line"> = {
         responsive: true,
         plugins: {
-            title: {
-                display: true,
-                align: 'start',
-                color: '#000000',
-                text: 'Estágio de Crescimento',
-                font: {
-                    family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-                    size: 24,
-                    lineHeight: 1
-                },
-                padding: 20
-            },
             legend: {
                 labels: {
                     boxHeight: 1,
                 }
-            }
+            },
         },
         animations: {
             tension: {
-                easing: 'linear',
                 duration: 1000,
                 from: 0,
                 to: 1,
                 loop: false,
             },
+        },
 
-        }
     }
 
 
