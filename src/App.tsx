@@ -1,11 +1,12 @@
-import React from 'react';
 import './App.css';
+import { BrowserRouter } from "react-router-dom";
+import { Router } from './routes/Route';
 
 function App() {
   return (
-    <div>
-      Estruturando projeto
-    </div>
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
   );
 }
 
