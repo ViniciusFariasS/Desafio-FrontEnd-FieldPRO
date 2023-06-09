@@ -1,15 +1,13 @@
 import React from 'react';
-import { Chart, registerables, ChartOptions, LegendItem, ChartData, ChartDataset } from 'chart.js';
+import { Chart, registerables, ChartOptions, ChartData } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { EColors, EColorsGradient, IGrowthStageProps } from './GrowthStage.interface';
 
 const GrowthStage: React.FC<IGrowthStageProps> = ({ data, labels }) => {
     Chart.register(...registerables);
-    Chart.defaults.elements.line.borderColor = "#F2f"
-    Chart.defaults.elements.line.borderWidth = 2
 
     const chartData: ChartData<"line"> = {
-        labels: labels?.slice(0, 10),
+        labels: labels,
         datasets: data ?
             data.map((item, indexof) => {
                 return {
@@ -44,7 +42,6 @@ const GrowthStage: React.FC<IGrowthStageProps> = ({ data, labels }) => {
         },
 
     }
-
 
     return <Line options={options} data={chartData} />
 };

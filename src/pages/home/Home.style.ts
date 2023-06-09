@@ -1,25 +1,38 @@
 import styled from "styled-components";
 
 const HomeContainer = styled.div`
-    margin: 0;
-    padding: 0;
-    width: 100vw;
-    height: 100vh;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
     background-color: #F5F5F5;
+    margin-top: 24px;
+    margin-bottom: 24px;
     .home{
+        &__filter{            
+            padding: 0;
+            margin-bottom: 16px;
+            width: 1000px;                   
+        }
         &__content{
+            display: flex;
+            flex-direction: column;
+            border-radius: 16px;            
+            background-color: #FFFFFF;            
+            padding: 24px;
+            width: 952px;
             &--title{
-            padding-bottom: 24px;
-            border-bottom: solid 3px #E7E7E7;
+                padding-bottom: 24px;
+                border-bottom: solid 3px #E7E7E7;
+            }
+            &--pagination{
+                width: 100%;
+                display: flex;
+                justify-content: end;
+                margin-top: 24px;
+            }
         }
-            width: 1000px;
-            border-radius: 16px;
-            padding: 16px;
-            background-color: #FFFFFF;
-        }
+        
     }
 `
 
