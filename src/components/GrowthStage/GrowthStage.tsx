@@ -3,6 +3,7 @@ import { Chart, registerables, ChartOptions, ChartData } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { EColors, EColorsGradient, IGrowthStageProps } from './GrowthStage.interface';
 
+
 const GrowthStage: React.FC<IGrowthStageProps> = ({ data, labels }) => {
     Chart.register(...registerables);
 
@@ -14,11 +15,12 @@ const GrowthStage: React.FC<IGrowthStageProps> = ({ data, labels }) => {
                     label: item?.label,
                     data: item?.data,
                     borderWidth: 3,
-                    fill: true,
+                    fill: 'stack',
                     pointBorderWidth: 0,
                     pointBackgroundColor: 'rgba(0,0,0,0)',
                     borderColor: EColors[indexof],
-                    backgroundColor: EColorsGradient[indexof]
+                    backgroundColor: EColorsGradient[indexof],
+                    redraw: true,
                 };
             }) : [],
     };
@@ -32,18 +34,17 @@ const GrowthStage: React.FC<IGrowthStageProps> = ({ data, labels }) => {
                 }
             },
         },
-        animations: {
-            tension: {
-                duration: 1000,
-                from: 0,
-                to: 1,
-                loop: false,
-            },
+        elements: {
+            line: {
+                tension: 1,
+                borderCapStyle: 'square',
+                cubicInterpolationMode: 'monotone',
+            }
         },
-
     }
 
     return <Line options={options} data={chartData} />
 };
+
 
 export { GrowthStage };
