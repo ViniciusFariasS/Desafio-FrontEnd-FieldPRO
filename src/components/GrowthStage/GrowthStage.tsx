@@ -28,11 +28,37 @@ const GrowthStage: React.FC<IGrowthStageProps> = ({ data, labels }) => {
     const options: ChartOptions<"line"> = {
         responsive: true,
         plugins: {
+            //Método para adicionar o título com a linha abaixo (pensar em maneiras melhores de fazer)
+            // subtitle: {
+            //     display: true,
+            //     text: "______________________________________________________________________________________________________________________________________________________________",            
+            // },
+            // title: {
+            //     display: true,
+            //     text: 'Estágio de Crescimento',
+            //     align: 'start',
+            //     color: "#00000",
+            //     font: {
+            //         family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+            //         size: 32,
+            //         lineHeight: 1
+            //     },
+            // },
             legend: {
                 labels: {
                     boxHeight: 1,
                 }
             },
+        },
+        scales: {
+            y: {
+                type: "linear",
+                title: {
+                    display: true,
+                    text: '°C',
+                    align: 'end'
+                },
+            }
         },
         elements: {
             line: {
