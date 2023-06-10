@@ -15,7 +15,7 @@ const GrowthStage: React.FC<IGrowthStageProps> = ({ data, labels }) => {
                     label: item?.label,
                     data: item?.data,
                     borderWidth: 3,
-                    fill: 'stack',
+                    fill: '0',
                     pointBorderWidth: 0,
                     pointBackgroundColor: 'rgba(0,0,0,0)',
                     borderColor: EColors[indexof],
@@ -52,13 +52,18 @@ const GrowthStage: React.FC<IGrowthStageProps> = ({ data, labels }) => {
             },
         },
         scales: {
+
             y: {
-                type: "linear",
-                title: {
-                    display: true,
-                    text: '°C',
-                    align: 'end'
-                },
+                type: "linear", 
+                ticks: {
+                    stepSize: 10,
+                    callback: (value, index, values) => {
+                        if (index === values.length - 1) {
+                            return "°C";
+                        }
+                        return value;
+                    }
+                }
             }
         },
         elements: {
