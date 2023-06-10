@@ -6,6 +6,8 @@ export interface IGrowthStageProps {
 export interface IGrowthStageDataset {
     label: string
     data: Array<any>
+    decimal?: number
+    type?: string
 }
 
 export enum EColors {

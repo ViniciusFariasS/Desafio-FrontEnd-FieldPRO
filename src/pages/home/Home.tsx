@@ -21,7 +21,7 @@ const Home = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalItens, setTotalItens] = useState(0);
     const [itemsPerPage, setItemsPerPage] = useState<number>(10);
-    const options: Array<number> = [10, 25, 50, 100, 150, 200];
+    const paginationOptions: Array<number> = [10, 25, 50, 100, 150, 200];
 
     useEffect(() => {
         getServiceJson
@@ -40,33 +40,37 @@ const Home = () => {
         const endIndex = startIndex + itemsPerPage;
         setTotalItens(time.length);
 
-        const newData: IGrowthStageProps = {
+        const newChartData: IGrowthStageProps = {
             labels: time.slice(startIndex, endIndex).map((item) => {
                 return item.toLocaleDateString('en-US', { month: 'short', day: '2-digit' })
             }),
             data: [
                 {
-                    label: "NDVI",
-                    data: ndvi.slice(startIndex, endIndex)
+                    label: "Ndvi",
+                    data: ndvi.slice(startIndex, endIndex),
+                    decimal: 2
                 },
                 {
                     label: "Degree days",
-                    data: degreeDays.slice(startIndex, endIndex)
+                    data: degreeDays.slice(startIndex, endIndex),
+                    decimal: 0,
+                    type: "C"
                 },
                 {
                     label: "Precipitation",
-                    data: precipitaion.slice(startIndex, endIndex)
+                    data: precipitaion.slice(startIndex, endIndex),
+                    decimal: 0,
+                    type: "mm"
                 },
             ]
         }
-        setChartData(newData);
+        setChartData(newChartData);
 
     }, [data, filter, currentPage, itemsPerPage]);
 
     function filterDatesByRange(dates: Date[], startDate: string, endDate: string) {
         const start = new Date(startDate);
         start.setDate(start.getDate() + 1);
-
         const end = new Date(endDate);
         end.setDate(end.getDate() + 1);
 
@@ -82,7 +86,6 @@ const Home = () => {
     const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
         const start = new Date(startDate);
         const end = new Date(endDate);
-
         e.preventDefault();
         if (start > end) {
             setError('A Data inicial não pode ser maior que a Data final!');
@@ -127,7 +130,7 @@ const Home = () => {
                     setItemsPerPage(Number(e.target.value));
                     setCurrentPage(1);
                 }}>
-                    {options.map((item) => (
+                    {paginationOptions.map((item) => (
                         <option key={item} value={item}>{item}</option>
                     ))}
                 </select>
