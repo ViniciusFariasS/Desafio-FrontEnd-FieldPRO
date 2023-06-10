@@ -25,11 +25,20 @@ const HomeContainer = styled.div`
                 padding-bottom: 24px;
                 border-bottom: solid 3px #E7E7E7;
             }
-            &--pagination{
-                width: 100%;
-                display: flex;
-                justify-content: end;
-                margin-top: 24px;
+        }
+        &__pagination{
+            width: 1000px;
+            display: flex;
+            justify-content: end;
+            margin-top: 24px;
+            select{
+                border-style: none;
+                background-color: transparent;
+                border-radius: 4px;
+                &:hover{
+                    background-color: #E2E2E2;
+                    cursor: pointer;
+                }
             }
         }
         

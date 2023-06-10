@@ -7,7 +7,7 @@ const Filter: React.FC<IFilterProps> = ({ children, handleFilterSubmit, error })
 
     return (
         <FilterContainer>
-            <label>Selecione os filtros para exibir os resultados</label>
+            <label>Selecione os filtros desejados para filtrar</label>
             <form onSubmit={handleFilterSubmit}>
                 {children}
                 <button type="submit"><FilterAltIcon /></button>

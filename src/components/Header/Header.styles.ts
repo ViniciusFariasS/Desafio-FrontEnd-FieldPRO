@@ -12,6 +12,11 @@ const HeaderContainer = styled.div`
             justify-content: start;
             align-items: center;
             width: 1000px;
+            h1{
+                font-size: 24px;
+                margin-right: 16px;
+                color:#C43710;
+            }
         }
     }
 `

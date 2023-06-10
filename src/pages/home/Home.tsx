@@ -11,14 +11,17 @@ const Home = () => {
     const [data, setData] = useState<Array<IServiceJson> | []>([])
     const [chartData, setChartData] = useState<IGrowthStageProps>();
 
+    //Filter
     const [startDate, setStartDate] = useState<string>("");
     const [endDate, setEndDate] = useState<string>("");
     const [filter, setFilter] = useState<boolean>(false);
     const [error, setError] = useState('');
 
+    //Pagination
     const [currentPage, setCurrentPage] = useState(1);
     const [totalItens, setTotalItens] = useState(0);
-    const itemsPerPage = 10;
+    const [itemsPerPage, setItemsPerPage] = useState<number>(10);
+    const options: Array<number> = [10, 25, 50, 100, 150, 200];
 
     useEffect(() => {
         getServiceJson
@@ -31,18 +34,16 @@ const Home = () => {
         const degreeDays = data.map((item) => item.degree_days);
         const precipitaion = data.map((item) => item.precipitation);
         const ndvi = data.map((item) => item.ndvi);
-        let time = data.map((item) => (new Date(item.time * 1000)).toLocaleDateString())
-
-        if (startDate && endDate) {
-            time = filterDatesByRange(data.map((item) => (new Date(item.time * 1000)).toLocaleDateString()), startDate, endDate);
-        }
+        let time: Array<Date> = filterDatesByRange(data.map((item) => (new Date(item.time * 1000))), startDate, endDate);
 
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
         setTotalItens(time.length);
 
         const newData: IGrowthStageProps = {
-            labels: time.slice(startIndex, endIndex),
+            labels: time.slice(startIndex, endIndex).map((item) => {
+                return item.toLocaleDateString('en-US', { month: 'short', day: '2-digit' })
+            }),
             data: [
                 {
                     label: "NDVI",
@@ -60,19 +61,22 @@ const Home = () => {
         }
         setChartData(newData);
 
-    }, [data, filter, currentPage]);
+    }, [data, filter, currentPage, itemsPerPage]);
 
-    function filterDatesByRange(dates: string[], startDate: string, endDate: string) {
+    function filterDatesByRange(dates: Date[], startDate: string, endDate: string) {
         const start = new Date(startDate);
+        start.setDate(start.getDate() + 1);
+
         const end = new Date(endDate);
-        return dates.filter((date) => {
-            const parts = date.split('/');
-            const formattedDate = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
+        end.setDate(end.getDate() + 1);
 
-            const currentDate = new Date(formattedDate);
-
-            return currentDate >= start && currentDate <= end;
-        });
+        if (startDate && endDate) {
+            return dates.filter((date) => {
+                return date >= start && date <= end;
+            });
+        } else {
+            return dates;
+        }
     }
 
     const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
@@ -89,10 +93,6 @@ const Home = () => {
             setFilter(!filter);
         }
     }
-
-    const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
-        setCurrentPage(page);
-    };
 
     return (
         <HomeContainer>
@@ -121,12 +121,21 @@ const Home = () => {
             <div className="home__content">
                 <h1 className="home__content--title">Estágio de Crescimento</h1>
                 <GrowthStage data={chartData?.data} labels={chartData?.labels} />
-                <div className="home__content--pagination">
-                    <Pagination
-                        count={Math.ceil(totalItens / itemsPerPage)}
-                        page={currentPage}
-                        onChange={(e, page: number) => setCurrentPage(page)} />
-                </div>
+            </div>
+            <div className="home__pagination">
+                <select onChange={(e) => {
+                    setItemsPerPage(Number(e.target.value));
+                    setCurrentPage(1);
+                }}>
+                    {options.map((item) => (
+                        <option key={item} value={item}>{item}</option>
+                    ))}
+                </select>
+                <Pagination
+                    shape="rounded"
+                    count={Math.ceil(totalItens / itemsPerPage)}
+                    page={currentPage}
+                    onChange={(e, page: number) => setCurrentPage(page)} />
             </div>
         </HomeContainer>
     )
