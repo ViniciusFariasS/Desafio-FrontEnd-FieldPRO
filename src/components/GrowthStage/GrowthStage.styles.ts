@@ -18,7 +18,10 @@ const GrowthStageContainer = styled.div`
             display: flex;
             justify-content: center;
             width: 100%;
+            height: 80px;
+
             &--container{
+                height: 80px;
                 width: 100%;
             }
             &--value{
