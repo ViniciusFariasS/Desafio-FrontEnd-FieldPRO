@@ -29,6 +29,7 @@ const GrowthStage: React.FC<IGrowthStageProps> = ({ data, labels }) => {
         responsive: true,
         plugins: {
             //Método para adicionar o título com a linha abaixo (pensar em maneiras melhores de fazer)
+            ///////////////////////////////////////////////////////////////////////////////////////////
             // subtitle: {
             //     display: true,
             //     text: "______________________________________________________________________________________________________________________________________________________________",            
