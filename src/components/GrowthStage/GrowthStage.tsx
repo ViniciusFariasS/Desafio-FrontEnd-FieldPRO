@@ -27,10 +27,8 @@ const GrowthStage: React.FC<IGrowthStageProps> = ({ data, labels }) => {
                     borderWidth: 3,
                     fill: '0',
                     pointBorderWidth: 0,
-                    pointBackgroundColor: 'rgba(0,0,0,0)',
                     borderColor: EColors[indexof],
                     backgroundColor: EColorsGradient[indexof],
-                    redraw: true,
                 };
             }) : [],
     };
@@ -44,9 +42,8 @@ const GrowthStage: React.FC<IGrowthStageProps> = ({ data, labels }) => {
         },
         scales: {
             y: {
-                type: "linear",
                 ticks: {
-                    stepSize: 10,                    
+                    stepSize: 10,
                     callback: (value, index, values) => {
                         if (index === values.length - 1) {
                             return "°C";
@@ -58,8 +55,6 @@ const GrowthStage: React.FC<IGrowthStageProps> = ({ data, labels }) => {
         },
         elements: {
             line: {
-                tension: 1,
-                borderCapStyle: 'square',
                 cubicInterpolationMode: 'monotone',
             }
         },
@@ -67,17 +62,13 @@ const GrowthStage: React.FC<IGrowthStageProps> = ({ data, labels }) => {
 
     const htmlLegendPlugin: Plugin<"line"> = {
         id: 'htmlLegend',
-        beforeUpdate(chart: Chart<"line">, args, options) {
+        beforeUpdate(chart: Chart<"line">) {
             if (chart.data.datasets[0]?.data.length > 0 && !document.getElementById('legend-id')) {
                 const legendContainer = document.getElementById("legend-container");
                 const ul = document.createElement('ul');
-                ul.style.display = "flex";
-                ul.style.justifyContent = "space-around";
-                ul.style.paddingLeft = "0";
                 chart.data.datasets.map((item) => {
                     const li = document.createElement('li');
                     li.id = "legend-id";
-
                     let averageValue: number = 0;
                     item?.data?.forEach((item: any, i) => {
                         averageValue = averageValue + (item as number);
@@ -99,7 +90,6 @@ const GrowthStage: React.FC<IGrowthStageProps> = ({ data, labels }) => {
                 })
                 legendContainer?.appendChild(ul);
             }
-
         }
     };
 

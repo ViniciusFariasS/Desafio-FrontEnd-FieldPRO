@@ -42,7 +42,7 @@ const Home = () => {
 
         const newChartData: IGrowthStageProps = {
             labels: time.slice(startIndex, endIndex).map((item) => {
-                return item.toLocaleDateString('en-US', { month: 'short', day: '2-digit' })
+                return item.toLocaleDateString('en-US', { month: 'short', day: '2-digit' });
             }),
             data: [
                 {
@@ -122,7 +122,6 @@ const Home = () => {
                 </Filter>
             </div>
             <div className="home__content">
-                <h1 className="home__content--title">Estágio de Crescimento</h1>
                 <GrowthStage data={chartData?.data} labels={chartData?.labels} />
             </div>
             <div className="home__pagination">

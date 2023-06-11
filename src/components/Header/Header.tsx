@@ -6,8 +6,8 @@ const Header: React.FC = () => {
     return (
         <HeaderContainer>
             <div className="header__content">
-                <h1>Desafio FrontEnd</h1>
                 <img src={logo} alt="logo FieldPro" />
+                <h1>Desafio FrontEnd</h1>
             </div>
         </HeaderContainer>
     );

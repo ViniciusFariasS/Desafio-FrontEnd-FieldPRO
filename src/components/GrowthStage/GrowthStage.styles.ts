@@ -3,15 +3,10 @@ import styled from "styled-components";
 const GrowthStageContainer = styled.div`
     padding: 0;
     margin: 0;
-    ul{
-        li{
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 2px;
-            list-style: none;
-        }
+
+    canvas{
+        border: 4px solid #3BACFF;
+        padding: 16px 8px;
     }
     .growthStage{
         &__legend{
@@ -22,6 +17,20 @@ const GrowthStageContainer = styled.div`
             &--container{
                 height: 80px;
                 width: 100%;
+                ul{
+                    display : flex;
+                    justify-content: space-between;
+                    width: 100%;
+                    padding: 0;
+                    li{            
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        padding-top: 2px;
+                        list-style: none;
+                        margin: 0 16px;
+                    }
+                }
             }
             &--value{
                 color: #000000;                
@@ -37,7 +46,6 @@ const GrowthStageContainer = styled.div`
             }
         }
         &__loading{
-            
             display: flex;
             justify-content: center;
         }

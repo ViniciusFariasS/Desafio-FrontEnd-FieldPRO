@@ -27,7 +27,7 @@ const HeaderContainer = styled.div`
             width: 1000px;
             h1{
                 font-size: 24px;
-                margin-right: 16px;
+                margin-left: 24px;
                 color:#C43710;
             }
         }

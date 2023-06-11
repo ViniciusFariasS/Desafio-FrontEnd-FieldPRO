@@ -23,6 +23,9 @@ const FilterContainer = styled.div`
             align-items: start !important;
             button {
                 margin-left: 8px;
+                &:hover{
+                    background-color: #468F70;
+                }
             }
         }
         .filter{ 
