@@ -14,14 +14,15 @@ const GrowthStageContainer = styled.div`
             justify-content: center;
             width: 100%;
             height: 80px;
+            margin-bottom: 16px;
             &--container{
                 height: 80px;
-                width: 100%;
+                width: 100%;                
                 ul{
                     display : flex;
                     justify-content: space-between;
                     width: 100%;
-                    padding: 0;
+                    padding: 0;                
                     li{            
                         display: flex;
                         flex-direction: column;

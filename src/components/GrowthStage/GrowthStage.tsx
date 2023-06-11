@@ -21,7 +21,7 @@ const GrowthStage: React.FC<IGrowthStageProps> = ({ data, labels }) => {
         labels: labels,
         datasets: data ?
             data.map((item, indexof) => {
-                return {
+                return {                    
                     label: item?.label,
                     data: item?.data,
                     borderWidth: 3,
