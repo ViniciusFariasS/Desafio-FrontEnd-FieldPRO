@@ -6,8 +6,15 @@ const FooterContainer = styled.footer`
     color: #FFFFFF;
     display: flex;
     justify-content: center;
-      .footer{
-          &__content{
+
+    @media screen and (max-width: 480px) {
+        padding: 8px;    
+        img{
+            width: 120px;
+        }
+    }
+        .footer{
+            &__content{
                 display: flex;
                 justify-content: end;
                 width: 1000px;

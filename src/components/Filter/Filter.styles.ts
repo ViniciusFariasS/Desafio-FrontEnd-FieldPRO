@@ -12,6 +12,27 @@ const FilterContainer = styled.div`
     label {
         font-size: 14px;
     }
+
+    @media screen and (max-width: 480px) {
+    /* Estilos para dispositivos móveis */
+    height: auto;
+        form {
+            width: 100%;
+            display: flex ;
+            flex-direction: column;
+            align-items: start !important;
+            button {
+                margin-left: 8px;
+            }
+        }
+        .filter{ 
+            &__error{
+                margin-top: 16px;
+            }
+        }
+    }
+
+
     .filter{
         &__input {
             display: flex;
@@ -60,6 +81,7 @@ const FilterContainer = styled.div`
             }
         }
     }
+
 `
 
 export {

@@ -6,6 +6,19 @@ const HeaderContainer = styled.div`
     color: #FFFFFF;
     display: flex;
     justify-content: center;
+
+    @media screen and (max-width: 480px) {
+        padding: 8px;    
+        h1{
+            font-size: 16px !important;
+            margin-right: 16px;
+            color:#C43710;
+        }
+        img{
+            width: 120px;
+        }
+    }
+
     .header{
         &__content{
             display: flex;

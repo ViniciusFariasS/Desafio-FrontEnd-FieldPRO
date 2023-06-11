@@ -138,6 +138,7 @@ const Home = () => {
                     shape="rounded"
                     count={Math.ceil(totalItens / itemsPerPage)}
                     page={currentPage}
+                    size="small"
                     onChange={(e, page: number) => setCurrentPage(page)} />
             </div>
         </HomeContainer>

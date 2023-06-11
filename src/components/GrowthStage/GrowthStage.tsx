@@ -46,7 +46,7 @@ const GrowthStage: React.FC<IGrowthStageProps> = ({ data, labels }) => {
             y: {
                 type: "linear",
                 ticks: {
-                    stepSize: 10,
+                    stepSize: 10,                    
                     callback: (value, index, values) => {
                         if (index === values.length - 1) {
                             return "°C";

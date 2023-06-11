@@ -19,20 +19,19 @@ const GrowthStageContainer = styled.div`
             justify-content: center;
             width: 100%;
             height: 80px;
-
             &--container{
                 height: 80px;
                 width: 100%;
             }
             &--value{
-                color: "#000000";                
+                color: #000000;                
                 font-weight: bold;
                 font-size: 32px;
                 margin: 0;
                 padding: 0;
             }
             &--text{
-                color: "#C2C2C2";                                           
+                color: #C2C2C2;                                           
                 margin: 0;
                 padding: 0;
             }
