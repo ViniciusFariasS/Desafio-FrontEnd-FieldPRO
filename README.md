@@ -14,6 +14,7 @@ Antes de começar, certifique-se de que o seguinte software esteja instalado em 
 Siga os passos abaixo para configurar o projeto:
 
 1. Clone o repositório para o seu sistema local usando o comando do Git:
+
     git clone https://github.com/ViniciusFariasS/Desafio-FrontEnd-FieldPRO.git
 
 2. Navegue para o diretório do projeto:
