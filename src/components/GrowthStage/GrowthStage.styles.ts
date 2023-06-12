@@ -10,10 +10,7 @@ const GrowthStageContainer = styled.div`
     }
     .growthStage{
         &__title {
-            border-bottom: 3px solid #f2f2f2;
-            h1{
-                padding-bottom: 24px;
-            }
+            border-bottom: 2px solid #DFDFDF;
         }
         &__legend{
             display: flex;
@@ -48,7 +45,7 @@ const GrowthStageContainer = styled.div`
             }
             &--text{
                 color: #C2C2C2;                                           
-                margin: 0;
+                margin-top: 2px;
                 padding: 0;
             }
         }
