@@ -8,6 +8,38 @@ import { GrowthStageContainer } from './GrowthStage.styles';
 
 const GrowthStage: React.FC<IGrowthStageProps> = ({ data, labels }) => {
     const [loading, setLoading] = useState<boolean>(false);
+    const [htmlLegendPlugin, setHtmlLegendPlugin] = useState<Plugin<"line">>({
+        id: 'htmlLegend',
+        beforeUpdate(chart: Chart<"line">) {
+            if (chart.data.datasets[0]?.data.length > 0 && !document.getElementById('legend-id')) {
+                const legendContainer = document.getElementById("legend-container");
+                const ul = document.createElement('ul');
+                chart.data.datasets.map((item, index) => {
+                    const li = document.createElement('li');
+                    li.id = "legend-id";
+                    let averageValue: number = 0;
+                    item?.data?.forEach((item: any, i) => {
+                        averageValue = averageValue + (item as number);
+                    })
+                    averageValue = Number(data ? data[index]?.decimal ? Math.floor((averageValue / item.data.length) * 10) / 10 : (averageValue / item.data.length).toFixed(0) : 0);
+
+                    const textValue = document.createElement('p');
+                    textValue.className = "growthStage__legend--value"
+                    textValue.style.borderBottom = `solid 4px ${item.borderColor}`
+                    textValue.textContent = (`${averageValue.toString()} ${data ? data[index]?.type ? data[index]?.type : "" : ""}`);
+
+                    const textContainer = document.createElement('p');
+                    textContainer.className = "growthStage__legend--text"
+                    textContainer.textContent = item?.label as string
+
+                    li.appendChild(textValue);
+                    li.appendChild(textContainer);
+                    ul.appendChild(li);
+                })
+                legendContainer?.appendChild(ul);
+            }
+        }
+    })
     Chart.register(...registerables);
 
     useEffect(() => {
@@ -15,13 +47,15 @@ const GrowthStage: React.FC<IGrowthStageProps> = ({ data, labels }) => {
         setTimeout(() => {
             setLoading(false);
         }, 500);
+
+
     }, [data])
 
     const chartData: ChartData<"line"> = {
         labels: labels,
         datasets: data ?
             data.map((item, indexof) => {
-                return {                    
+                return {
                     label: item?.label,
                     data: item?.data,
                     borderWidth: 3,
@@ -59,39 +93,6 @@ const GrowthStage: React.FC<IGrowthStageProps> = ({ data, labels }) => {
             }
         },
     }
-
-    const htmlLegendPlugin: Plugin<"line"> = {
-        id: 'htmlLegend',
-        beforeUpdate(chart: Chart<"line">) {
-            if (chart.data.datasets[0]?.data.length > 0 && !document.getElementById('legend-id')) {
-                const legendContainer = document.getElementById("legend-container");
-                const ul = document.createElement('ul');
-                chart.data.datasets.map((item) => {
-                    const li = document.createElement('li');
-                    li.id = "legend-id";
-                    let averageValue: number = 0;
-                    item?.data?.forEach((item: any, i) => {
-                        averageValue = averageValue + (item as number);
-                    })
-                    averageValue = Number((averageValue / item.data.length).toFixed(0));
-
-                    const textValue = document.createElement('p');
-                    textValue.className = "growthStage__legend--value"
-                    textValue.style.borderBottom = `solid 4px ${item.borderColor}`
-                    textValue.textContent = averageValue.toString();
-
-                    const textContainer = document.createElement('p');
-                    textContainer.className = "growthStage__legend--text"
-                    textContainer.textContent = item?.label as string
-
-                    li.appendChild(textValue);
-                    li.appendChild(textContainer);
-                    ul.appendChild(li);
-                })
-                legendContainer?.appendChild(ul);
-            }
-        }
-    };
 
     return (
         <GrowthStageContainer>

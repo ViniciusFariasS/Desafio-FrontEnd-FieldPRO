@@ -41,6 +41,7 @@ const Home = () => {
         setTotalItens(time.length);
 
         const newChartData: IGrowthStageProps = {
+            title: "Growth Stage",
             labels: time.slice(startIndex, endIndex).map((item) => {
                 return item.toLocaleDateString('en-US', { month: 'short', day: '2-digit' });
             }),
@@ -48,18 +49,18 @@ const Home = () => {
                 {
                     label: "Ndvi",
                     data: ndvi.slice(startIndex, endIndex),
-                    decimal: 2
+                    decimal: true
                 },
                 {
                     label: "Degree days",
                     data: degreeDays.slice(startIndex, endIndex),
-                    decimal: 0,
+                    decimal: false,
                     type: "C"
                 },
                 {
                     label: "Precipitation",
                     data: precipitaion.slice(startIndex, endIndex),
-                    decimal: 0,
+                    decimal: false,
                     type: "mm"
                 },
             ]
@@ -122,7 +123,7 @@ const Home = () => {
                 </Filter>
             </div>
             <div className="home__content">
-                <GrowthStage data={chartData?.data} labels={chartData?.labels} />
+                <GrowthStage data={chartData?.data} labels={chartData?.labels} title="Growth Stage" />
             </div>
             <div className="home__pagination">
                 <select onChange={(e) => {

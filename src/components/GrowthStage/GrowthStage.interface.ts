@@ -1,12 +1,13 @@
 export interface IGrowthStageProps {
     data?: Array<IGrowthStageDataset>
     labels?: Array<string>
+    title: string
 }
 
 export interface IGrowthStageDataset {
     label: string
     data: Array<any>
-    decimal?: number
+    decimal: boolean
     type?: string
 }
 
