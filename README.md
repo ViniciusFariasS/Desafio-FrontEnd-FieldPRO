@@ -17,13 +17,13 @@ Siga os passos abaixo para configurar o projeto:
 
     git clone https://github.com/ViniciusFariasS/Desafio-FrontEnd-FieldPRO.git
 
-2. Navegue para o diretório do projeto:
+2. No terminal navegue até o diretório do projeto:
 
 - cd Desafio-FrontEnd-FieldPRO
 
 3. Instale as dependências do projeto executando o seguinte comando:
 
-- npm install ou yarn
+- npm install
 
 ## Rodando o projeto
 
@@ -31,7 +31,7 @@ Depois de configurar o projeto, você pode executá-lo localmente com os seguint
 
 1. Execute o comando a seguir para iniciar o servidor de desenvolvimento:
 
-- npm start ou yarn start
+- npm start
 
 Isso iniciará o servidor local em `http://localhost:3000` e atualizará automaticamente a página quando houver alterações no código fonte.
 
