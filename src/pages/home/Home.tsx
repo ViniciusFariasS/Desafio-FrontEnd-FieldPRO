@@ -1,20 +1,22 @@
 import { useEffect, useState } from "react";
-import { getServiceJson } from "../../services/serviceJson.service";
+import { getGrowthStage } from "../../services/serviceJson.service";
 import { HomeContainer } from "./Home.style";
 import { GrowthStage } from "../../components/GrowthStage/GrowthStage";
-import { IServiceJson } from "./Home.interface";
+import { IGrowthStage } from "./Home.interface";
 import { IGrowthStageProps } from "../../components/GrowthStage/GrowthStage.interface";
 import { Filter } from "../../components/Filter/Filter";
 import { Pagination } from "@mui/material";
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import AutoDeleteIcon from '@mui/icons-material/AutoDelete';
 
 const Home = () => {
-    const [data, setData] = useState<Array<IServiceJson> | []>([])
+    const [data, setData] = useState<Array<IGrowthStage> | []>([])
+    const [filteredData, setFilteredData] = useState<Array<IGrowthStage> | []>([])
     const [chartData, setChartData] = useState<IGrowthStageProps>();
 
     //Filter
     const [startDate, setStartDate] = useState<string>("");
     const [endDate, setEndDate] = useState<string>("");
-    const [filter, setFilter] = useState<boolean>(false);
     const [error, setError] = useState('');
 
     //Pagination
@@ -24,64 +26,58 @@ const Home = () => {
     const paginationOptions: Array<number> = [10, 25, 50, 100, 150, 200];
 
     useEffect(() => {
-        getServiceJson
+        getGrowthStage
             .then(res => {
                 setData(res.data);
             });
     }, []);
 
     useEffect(() => {
-        const degreeDays = data.map((item) => item.degree_days);
-        const precipitaion = data.map((item) => item.precipitation);
-        const ndvi = data.map((item) => item.ndvi);
-        let time: Array<Date> = filterDatesByRange(data.map((item) => (new Date(item.time * 1000))), startDate, endDate);
+        if (data.length) {
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
 
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        setTotalItens(time.length);
+            const degreeDaysArr = filteredData.length ? filteredData.map((item) => item.degree_days) : data.map((item) => item.degree_days).slice(startIndex, endIndex);
+            const precipitaionArr = filteredData.length ? filteredData.map((item) => item.precipitation) : data.map((item) => item.precipitation).slice(startIndex, endIndex);
+            const ndviArr = filteredData.length ? filteredData.map((item) => item.ndvi) : data.map((item) => item.ndvi).slice(startIndex, endIndex);
+            const timeArr = filteredData.length ? filteredData.map((item) => new Date(item.time * 1000)) : data.map((item) => new Date(item.time * 1000));
 
-        const newChartData: IGrowthStageProps = {
-            title: "Growth Stage",
-            labels: time.slice(startIndex, endIndex).map((item) => {
-                return item.toLocaleDateString('en-US', { month: 'short', day: '2-digit' });
-            }),
-            data: [
-                {
-                    label: "Ndvi",
-                    data: ndvi.slice(startIndex, endIndex),
-                    decimal: true
-                },
-                {
-                    label: "Degree days",
-                    data: degreeDays.slice(startIndex, endIndex),
-                    decimal: false,
-                    type: "C"
-                },
-                {
-                    label: "Precipitation",
-                    data: precipitaion.slice(startIndex, endIndex),
-                    decimal: false,
-                    type: "mm"
-                },
-            ]
+            const newChartData: IGrowthStageProps = {
+                labels: timeArr.slice(startIndex, endIndex).map((item) => {
+                    return item.toLocaleDateString('en-US', { month: 'short', day: '2-digit' });
+                }),
+                data: [
+                    {
+                        label: "Ndvi",
+                        data: ndviArr,
+                        decimal: true
+                    },
+                    {
+                        label: "Degree days",
+                        data: degreeDaysArr,
+                        decimal: false,
+                        type: "C"
+                    },
+                    {
+                        label: "Precipitation",
+                        data: precipitaionArr,
+                        decimal: false,
+                        type: "mm"
+                    },
+                ]
+            }
+            setTotalItens(timeArr.length);
+            setChartData(newChartData);
         }
-        setChartData(newChartData);
+    }, [data, filteredData, currentPage, itemsPerPage]);
 
-    }, [data, filter, currentPage, itemsPerPage]);
+    function filterChartData() {
+        setCurrentPage(1);
+        const start = ((new Date(startDate).getTime() + 10800000));
+        const end = ((new Date(endDate).getTime() + 97199000));
 
-    function filterDatesByRange(dates: Date[], startDate: string, endDate: string) {
-        const start = new Date(startDate);
-        start.setDate(start.getDate() + 1);
-        const end = new Date(endDate);
-        end.setDate(end.getDate() + 1);
-
-        if (startDate && endDate) {
-            return dates.filter((date) => {
-                return date >= start && date <= end;
-            });
-        } else {
-            return dates;
-        }
+        const newFilteredData = data.filter((item) => (item.time * 1000) >= start && (item.time * 1000) <= end)
+        setFilteredData(newFilteredData);
     }
 
     const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
@@ -93,9 +89,15 @@ const Home = () => {
             return;
         }
         else {
-            setError('');
-            setFilter(!filter);
+            filterChartData();
+            setError("");
         }
+    }
+
+    const cleanFilter = () => {
+        setStartDate("");
+        setEndDate("");
+        setFilteredData([]);
     }
 
     return (
@@ -120,10 +122,15 @@ const Home = () => {
                             onChange={(e) => setEndDate(e.target.value)}
                         />
                     </div>
+                    <div className="filter__button">
+                        <button className="filter__button--filter" type="submit"><FilterAltIcon /></button>
+                        <button className="filter__button--clean" type={"button"} onClick={cleanFilter}><AutoDeleteIcon /></button>
+                    </div>
                 </Filter>
+
             </div>
             <div className="home__content">
-                <GrowthStage data={chartData?.data} labels={chartData?.labels} title="Growth Stage" />
+                <GrowthStage data={chartData?.data || []} labels={chartData?.labels || []} title="Growth Stage" />
             </div>
             <div className="home__pagination">
                 <select onChange={(e) => {

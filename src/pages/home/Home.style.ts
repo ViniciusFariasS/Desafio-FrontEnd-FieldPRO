@@ -10,7 +10,6 @@ const HomeContainer = styled.div`
     margin-bottom: 24px;
 
     @media screen and (max-width: 1000px) {
-    /* Estilos para tablets */
         .home {
             &__filter {
                 width: 90% !important;
@@ -26,7 +25,6 @@ const HomeContainer = styled.div`
     }
 
     @media screen and (max-width: 480px) {
-    /* Estilos para dispositivos móveis */
         .home {
             &__filter {
                 width: 80% !important;
@@ -54,8 +52,8 @@ const HomeContainer = styled.div`
             flex-direction: column;
             border-radius: 16px;
             background-color: #FFFFFF;
-            padding: 24px;
-            width: 952px;
+            padding: 48px;
+            width: 904px;
             &--title {
                 padding-bottom: 24px;
                 border-bottom: solid 3px #E7E7E7;

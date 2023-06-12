@@ -7,21 +7,24 @@ const FooterContainer = styled.footer`
     display: flex;
     justify-content: center;
 
+
     @media screen and (max-width: 480px) {
+        width: 100%;
+        position: fixed;
+        bottom: 0;
         padding: 8px;    
         img{
-            width: 120px;
+            width: 120px;            
         }
     }
         .footer{
             &__content{
                 display: flex;
-                justify-content: end;
-                width: 1000px;
+                justify-content: center;                
           }
-  }
+    } 
 `;
 
 export {
-  FooterContainer
+    FooterContainer
 }

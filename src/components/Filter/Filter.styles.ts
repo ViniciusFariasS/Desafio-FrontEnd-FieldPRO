@@ -14,19 +14,12 @@ const FilterContainer = styled.div`
     }
 
     @media screen and (max-width: 480px) {
-    /* Estilos para dispositivos móveis */
     height: auto;
         form {
             width: 100%;
             display: flex ;
             flex-direction: column;
             align-items: start !important;
-            button {
-                margin-left: 8px;
-                &:hover{
-                    background-color: #468F70;
-                }
-            }
         }
         .filter{ 
             &__error{
@@ -55,6 +48,36 @@ const FilterContainer = styled.div`
                 border-radius: 4px;                
             }
         }
+        &__button{
+            margin-left: 8px;
+            display: flex;
+            button {
+            margin-top: 24px;
+            margin-right: 8px;
+            border-style: none;
+            color: #FFFFFF;
+            border-radius: 4px;
+            width: 32px;
+            height: 32px;            
+            cursor: pointer;
+            svg{
+                width: 16px;
+                height: 16px;
+            }
+        }
+            &--filter{
+                background-color: #46D370;
+                &:hover{
+                    background-color: #468F70;
+                }
+            }
+            &--clean{
+                background-color: #F74D35;
+                &:hover{
+                    background-color: #4C170C;
+                }
+            }
+        }
         &__error{
             font-size: 12px;
             color: red;
@@ -66,23 +89,6 @@ const FilterContainer = styled.div`
         justify-content: center;
         align-items: center;
         margin-top: 16px;
-        button {
-            margin-top: 24px;
-            border-style: none;
-            background-color: #46D370;
-            color: #FFFFFF;
-            border-radius: 4px;
-            width: 32px;
-            height: 32px;            
-            cursor: pointer;
-            svg{
-                width: 16px;
-                height: 16px;
-            }
-            &:hover{
-                background-color: #468F70;
-            }
-        }
     }
 
 `

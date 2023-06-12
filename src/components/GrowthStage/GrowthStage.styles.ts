@@ -9,6 +9,12 @@ const GrowthStageContainer = styled.div`
         padding: 16px 8px;
     }
     .growthStage{
+        &__title {
+            border-bottom: 3px solid #f2f2f2;
+            h1{
+                padding-bottom: 24px;
+            }
+        }
         &__legend{
             display: flex;
             justify-content: center;
@@ -50,6 +56,24 @@ const GrowthStageContainer = styled.div`
             display: flex;
             justify-content: center;
         }
+    }
+
+    @media screen and (max-width: 480px) {
+        .growthStage{
+            &__title {
+            h1{
+                padding-bottom: 16px;
+            }
+        }
+            &__legend{
+                &--value{
+                    font-size: 24px;
+                }
+                &--text{
+                    font-size: 12px;
+                }
+            }
+        } 
     }
 `
 

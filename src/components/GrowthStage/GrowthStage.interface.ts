@@ -1,7 +1,7 @@
 export interface IGrowthStageProps {
-    data?: Array<IGrowthStageDataset>
-    labels?: Array<string>
-    title: string
+    data: Array<IGrowthStageDataset>
+    labels: Array<string>
+    title?: string
 }
 
 export interface IGrowthStageDataset {
@@ -17,8 +17,8 @@ export enum EColors {
     "#3A99C4"
 }
 
-export enum EColorsGradient {
-    "hsl(175, 60%, 67%,0.1)",
-    "hsl(10, 89%, 67%, 0.1)",
-    "hsl(199, 54%, 50%, 0.1)",
+export enum EColorsTransparecy {
+    "#79DED510",
+    "#F67A6010",
+    "#3A99C410"
 }
